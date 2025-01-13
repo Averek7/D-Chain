@@ -3,10 +3,6 @@ import React from "react";
 const Dashboard = () => {
     return (
         <div className="min-h-screen bg-gray-900 text-white">
-            {/* Header */}
-            <header className="p-4 bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md">
-                <h1 className="text-2xl font-bold">Common Dashboard</h1>
-            </header>
 
             {/* Main Container */}
             <div className="p-6 space-y-6">
