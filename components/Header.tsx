@@ -1,6 +1,6 @@
 "use client";
 import { useGlobalContext } from "@/context/GlobalContext";
-import { AppKitButton, useAppKit, useAppKitAccount } from "@reown/appkit/react";
+import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 import React, { useEffect, useState } from "react";
 import { RiMenuLine } from "react-icons/ri";
 import RoleSelectionModal from "./RoleSelectionModal";
@@ -48,7 +48,6 @@ export function Header({
             });
             if (response.status === 201) {
                 console.log("User registered successfully");
-                // Set the user role in global context
                 setUserRole(role);
             }
             setShowRoleModal(false);

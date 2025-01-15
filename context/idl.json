@@ -1,0 +1,239 @@
+{
+    "version": "0.1.0",
+    "name": "supply_chain",
+    "instructions": [
+        {
+            "name": "initialize",
+            "accounts": [
+                {
+                    "name": "supplyChain",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "payer",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "manufacturer",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "supplier",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "retailer",
+                    "type": "publicKey"
+                }
+            ]
+        },
+        {
+            "name": "requestOrder",
+            "accounts": [
+                {
+                    "name": "order",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "authority",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "quantity",
+                    "type": "u64"
+                }
+            ]
+        },
+        {
+            "name": "processOrder",
+            "accounts": [
+                {
+                    "name": "order",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "approve",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "updateOrderStatus",
+            "accounts": [
+                {
+                    "name": "order",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": false,
+                    "isSigner": true
+                },
+                {
+                    "name": "supplyChain",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "newStatus",
+                    "type": {
+                        "defined": "OrderStatus"
+                    }
+                },
+                {
+                    "name": "update",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "confirmDelivery",
+            "accounts": [
+                {
+                    "name": "order",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "authority",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": []
+        }
+    ],
+    "accounts": [
+        {
+            "name": "SupplyChain",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "manufacturer",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "supplier",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "retailer",
+                        "type": "publicKey"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Order",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "requestedBy",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "quantity",
+                        "type": "u64"
+                    },
+                    {
+                        "name": "status",
+                        "type": {
+                            "defined": "OrderStatus"
+                        }
+                    },
+                    {
+                        "name": "trackingUpdates",
+                        "type": {
+                            "vec": "string"
+                        }
+                    },
+                    {
+                        "name": "timestamps",
+                        "type": {
+                            "vec": "i64"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "types": [
+        {
+            "name": "OrderStatus",
+            "type": {
+                "kind": "enum",
+                "variants": [
+                    {
+                        "name": "Requested"
+                    },
+                    {
+                        "name": "Approved"
+                    },
+                    {
+                        "name": "Rejected"
+                    },
+                    {
+                        "name": "InProduction"
+                    },
+                    {
+                        "name": "ReadyForPickup"
+                    },
+                    {
+                        "name": "InTransit"
+                    },
+                    {
+                        "name": "Delivered"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "InvalidOrderStatus",
+            "msg": "Invalid order status for this action."
+        },
+        {
+            "code": 6001,
+            "name": "Unauthorized",
+            "msg": "Unauthorised User."
+        },
+        {
+            "code": 6002,
+            "name": "InvalidStatusTransition",
+            "msg": "Invalid Transition."
+        }
+    ]
+}
