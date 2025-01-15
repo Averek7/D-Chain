@@ -1,6 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "./Modal";
 
 const Supplier = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const closeModal = () => setIsModalOpen(false);
+    const openModal = () => setIsModalOpen(true);
+
+    const handleOrder = () => {
+        console.log('Order Submitted:', );
+    }
+
     return (
         <div className="w-full h-full bg-gray-900 text-white">
 
@@ -96,7 +106,7 @@ const Supplier = () => {
                 <section>
                     <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <button className="p-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md shadow">
+                        <button className="p-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md shadow" onClick={openModal}>
                             Add New Order
                         </button>
                         <button className="p-4 bg-green-600 hover:bg-green-500 text-white rounded-md shadow">
@@ -108,6 +118,7 @@ const Supplier = () => {
                     </div>
                 </section>
             </div>
+            <Modal isOpen={isModalOpen} onClose={closeModal} onSubmit={handleOrder}/>
         </div>
     );
 };
