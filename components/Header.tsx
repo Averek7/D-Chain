@@ -31,7 +31,7 @@ export function Header({
                         setIsUserRegistered(true);
                     }
                 } catch (error) {
-                    console.log("User not registered yet");
+                    console.log("User not registered yet", error);
                     setIsUserRegistered(false);
                 }
             }

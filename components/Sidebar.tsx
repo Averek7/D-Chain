@@ -237,7 +237,9 @@ export const SidebarOpenElement = ({
     return (
         <div
             onClick={() => {
-                link && router.push(link);
+                if (link) {
+                    router.push(link);
+                }
             }}
             className="w-full transition-all cursor-pointer rounded-md flex items-end gap-3 pl-4 py-2 bg-transparent hover:bg-[#1f2024] focus:bg-[#1f2024] group"
         >
@@ -297,7 +299,7 @@ export const OpenSidebar = ({
                         <SidebarOpenElement text="Home" link="/" />
                     </div>
                     {sidebarContent[userRole]?.map((item) => (
-                        <div onClick={() => {
+                        <div key={item.text} onClick={() => {
                             if (router.pathname === `${item.link}`) {
                                 setSidebar(false);
                             }

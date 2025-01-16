@@ -9,9 +9,21 @@ interface ModalProps {
 function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
     if (!isOpen) return null;
 
-    const [productName, setProductName] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [notes, setNotes] = useState('');
+    const [inventory, setInventory] = useState({
+        productName: '',
+        quantity: '',
+        notes: ''
+    });
+
+    const { productName, quantity, notes } = inventory;
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setInventory((prevInventory) => ({
+            ...prevInventory,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = () => {
         if (!productName || !quantity) {
@@ -38,7 +50,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <input
                             type="text"
                             value={productName}
-                            onChange={(e) => setProductName(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter product name"
                         />
@@ -48,7 +60,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <input
                             type="number"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter quantity"
                         />
@@ -57,7 +69,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <label className="block text-gray-300 mb-1">Additional Notes</label>
                         <textarea
                             value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Optional notes"
                             rows={3}
