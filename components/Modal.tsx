@@ -7,12 +7,10 @@ interface ModalProps {
 }
 
 function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
-    if (!isOpen) return null;
-
     const [inventory, setInventory] = useState({
         productName: '',
         quantity: '',
-        notes: ''
+        notes: '',
     });
 
     const { productName, quantity, notes } = inventory;
@@ -21,7 +19,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
         const { name, value } = e.target;
         setInventory((prevInventory) => ({
             ...prevInventory,
-            [name]: value
+            [name]: value,
         }));
     };
 
@@ -31,8 +29,10 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
             return;
         }
         onSubmit({ productName, quantity, notes });
-        onClose(); 
+        onClose();
     };
+
+    if (!isOpen) return null; 
 
     return (
         <div
@@ -49,6 +49,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <label className="block text-gray-300 mb-1">Product Name</label>
                         <input
                             type="text"
+                            name="productName"
                             value={productName}
                             onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -59,6 +60,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <label className="block text-gray-300 mb-1">Quantity</label>
                         <input
                             type="number"
+                            name="quantity"
                             value={quantity}
                             onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -68,6 +70,7 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                     <div>
                         <label className="block text-gray-300 mb-1">Additional Notes</label>
                         <textarea
+                            name="notes"
                             value={notes}
                             onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
