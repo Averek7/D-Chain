@@ -1,10 +1,17 @@
 import { useGlobalContext } from "@/context/GlobalContext";
-import Home from "@/public/assets/Home";
-import Telegram from "@/public/assets/Telegram";
+import Discord from "@/public/assets/Discord";
 import Twitter from "@/public/assets/Twitter";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { HiHome } from "react-icons/hi";
+import {
+    MdDeliveryDining,
+    MdInventory2,
+    MdOutlineInventory,
+    MdRequestPage,
+} from "react-icons/md";
+import { SiAuthy } from "react-icons/si";
 
 const topIconCss =
     "group cursor-pointer mb-2.5 transition-all flex items-center justify-center rounded-md w-12 h-9 bg-transparent hover:bg-[#1E2024] focus:bg-[#1E2024] text-[#ababac] hover:text-[#5F4DFF] focus:text-[#5F4DFF]";
@@ -37,27 +44,167 @@ export default function Sidebar({
                     className={`${sidebar ? "fadeOutDown" : "fadeIn"
                         } flex flex-col items-center justify-between w-full h-full pt-4`}
                 >
-                    <div
-                        onClick={() => {
-                            if (router.pathname === "/") {
-                                setSidebar(true);
-                            } else {
-                                router.push("/");
-                                setSidebar(false);
-                            }
-                        }}
-                        className={`${topIconCss}`}
-                    >
-                        <Home
-                            className={
-                                router.pathname === "/" ? activeIconCss : closedIconCss
-                            }
-                        />
+                    <div className="w-full flex flex-col items-center">
+                        <div
+                            onClick={() => {
+                                if (router.pathname === "/") {
+                                    setSidebar(true);
+                                } else {
+                                    router.push("/");
+                                    setSidebar(false);
+                                }
+                            }}
+                            className={`${topIconCss}`}
+                        >
+                            <HiHome
+                                className={
+                                    router.pathname === "/" ? activeIconCss : closedIconCss
+                                }
+                                size={20}
+                            />
+                        </div>
+                        {userRole === "Manufacturer" && (
+                            <>
+                                <div
+                                    onClick={() => {
+                                        router.push("/inventory");
+                                        setSidebar(false);
+                                    }}
+                                    className={`${topIconCss}`}
+                                >
+                                    <MdInventory2
+                                        className={
+                                            router.pathname === "/inventory"
+                                                ? activeIconCss
+                                                : closedIconCss
+                                        }
+                                        size={20}
+                                    />
+                                </div>
+                                <div
+                                    onClick={() => {
+                                        router.push("/supplies");
+                                        setSidebar(false);
+                                    }
+                                    }
+                                    className={`${topIconCss}`}
+                                >
+                                    <MdRequestPage
+                                        className={
+                                            router.pathname === "/supplies" ? activeIconCss : closedIconCss
+                                        }
+                                        size={20}
+                                    />
+                                </div>
+                            </>
+                        )}
+                        {userRole === "Retailer" && (
+                            <>
+                                <div
+                                    className={`${topIconCss}`}
+                                    onClick={() => {
+                                        router.push("/track-shipment");
+                                        setSidebar(false);
+                                    }}
+                                >
+                                    <MdDeliveryDining
+                                        className={
+                                            router.pathname === "/track-shipment"
+                                                ? activeIconCss
+                                                : closedIconCss
+                                        }
+                                        size={20}
+                                    />
+                                </div>
+                                <div
+                                    className={`${topIconCss}`}
+                                    onClick={() => {
+                                        router.push("/receive-stock");
+                                        setSidebar(false);
+                                    }}
+                                >
+                                    <MdOutlineInventory
+                                        className={
+                                            router.pathname === "/receive-stock"
+                                                ? activeIconCss
+                                                : closedIconCss
+                                        }
+                                        size={20}
+                                    />
+                                </div>
+                                <div
+                                    className={`${topIconCss}`}
+                                    onClick={() => {
+                                        router.push("/authenticity");
+                                        setSidebar(false);
+                                    }}
+                                >
+                                    <SiAuthy
+                                        className={
+                                            router.pathname === "/authenticity"
+                                                ? activeIconCss
+                                                : closedIconCss
+                                        }
+                                        size={20}
+                                    />
+                                </div>
+                            </>
+                        )}
+                        {userRole === "Supplier" && <>
+                            <div
+                                onClick={() => {
+                                    router.push("/inventory");
+                                    setSidebar(false);
+                                }}
+                                className={`${topIconCss}`}
+                            >
+                                <MdInventory2
+                                    className={
+                                        router.pathname === "/inventory"
+                                            ? activeIconCss
+                                            : closedIconCss
+                                    }
+                                    size={20}
+                                />
+                            </div>
+                            <div
+                                onClick={() => {
+                                    router.push("/view-stock");
+                                    setSidebar(false);
+                                }}
+                                className={`${topIconCss}`}
+                            >
+                                <MdRequestPage
+                                    className={
+                                        router.pathname === "/view-stock"
+                                            ? activeIconCss
+                                            : closedIconCss
+                                    }
+                                    size={20}
+                                />
+                            </div>
+                            <div
+                                onClick={() => {
+                                    router.push("/track-shipment");
+                                    setSidebar(false);
+                                }}
+                                className={`${topIconCss}`}
+                            >
+                                <MdDeliveryDining
+                                    className={
+                                        router.pathname === "/track-shipment"
+                                            ? activeIconCss
+                                            : closedIconCss
+                                    }
+                                    size={20}
+                                />
+                            </div>                            
+                        </>}
                     </div>
 
                     <div className="w-full flex flex-col items-center mb-2">
                         <Link
-                            href={"https://x.com/superbetgames"}
+                            href={"https://x.com/reown_"}
                             target="_blank"
                             className={`${bottomIconCss}`}
                         >
@@ -69,13 +216,13 @@ export default function Sidebar({
                             target="_blank"
                             className={`${bottomIconCss}`}
                         >
-                            <Telegram className={`${closedIconCss}`} />
+                            <Discord className={`${closedIconCss}`} />
                         </Link>
                     </div>
-                </div>
-
-            )}
-        </div>
+                </div >
+            )
+            }
+        </div >
     );
 }
 
@@ -115,18 +262,18 @@ export const OpenSidebar = ({
 
     const sidebarContent: Record<string, { text: string; link: string }[]> = {
         Supplier: [
-            { text: "Add Inventory", link: "/add-inventory" },
+            { text: "Add Inventory", link: "/inventory" },
             { text: "View Stock", link: "/view-stock" },
-            { text: "Track Shipments", link: "/track-shipments" },
+            { text: "Track Shipments", link: "/track-shipment" },
         ],
         Manufacturer: [
-            { text: "Add Production Data", link: "/add-production" },
-            { text: "Approve Incoming Supplies", link: "/approve-supplies" },
+            { text: "Add Production Data", link: "/inventory" },
+            { text: "Supplies", link: "/supplies" },
         ],
         Retailer: [
-            { text: "Track Deliveries", link: "/track-deliveries" },
+            { text: "Track Shipment", link: "/track-shipment" },
             { text: "Receive Stock", link: "/receive-stock" },
-            { text: "Verify Product Authenticity", link: "/verify-authenticity" },
+            { text: "Verify Product Authenticity", link: "/authenticity" },
         ],
     };
 
@@ -146,15 +293,21 @@ export const OpenSidebar = ({
                                 setSidebar(false);
                             }
                         }}
-                        className={`${topIconCss}`}
                     >
-                        <SidebarOpenElement
-                            text="Home"
-                            link="/"
-                        />
+                        <SidebarOpenElement text="Home" link="/" />
                     </div>
                     {sidebarContent[userRole]?.map((item) => (
-                        <SidebarOpenElement key={item.text} text={item.text} link={item.link} />
+                        <div onClick={() => {
+                            if (router.pathname === `${item.link}`) {
+                                setSidebar(false);
+                            }
+                        }}>
+                            <SidebarOpenElement
+                                key={item.text}
+                                text={item.text}
+                                link={item.link}
+                            />
+                        </div>
                     ))}
                 </div>
             </div>
@@ -172,14 +325,13 @@ export const OpenSidebar = ({
                 </Link>
 
                 <Link
-                    href="https://t.me/superbetgames "
+                    href="https://discord.com/invite/kdTQHQ6AFQ"
                     className={`${openLinkCss}`}
                     target="_blank"
                 >
-                    <Telegram className="w-5 h-5" />
-                    Telegram
+                    <Discord className="w-5 h-5" />
+                    Discord
                 </Link>
-
             </div>
         </>
     );

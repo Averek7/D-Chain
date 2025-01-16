@@ -13,7 +13,7 @@ export function Header({
     sidebar: boolean;
     toggleSidebar: () => void;
 }) {
-    const { open, close } = useAppKit()
+    const { open } = useAppKit()
     const { address, isConnected } = useAppKitAccount();
     const { showRoleModal, setShowRoleModal, setUserRole, userRole } =
         useGlobalContext();
