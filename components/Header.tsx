@@ -18,7 +18,8 @@ export function Header({
     const { showRoleModal, setShowRoleModal, setUserRole, userRole } =
         useGlobalContext();
     const [isUserRegistered, setIsUserRegistered] = useState<boolean>(false);
-
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const checkUserRegistration = async () => {
             if (isConnected && address) {

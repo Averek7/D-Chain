@@ -5,7 +5,7 @@ import { solanaDevnet, mainnet, solana, sepolia } from '@reown/appkit/networks'
 import { SolflareWalletAdapter, PhantomWalletAdapter } from '@solana/wallet-adapter-wallets'
 
 
-export const projectId = "69f8987fd326ad3cc37ab56edbb98c21"
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID
 
 if (!projectId) {
   throw new Error('Project ID is not defined')
