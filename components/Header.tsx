@@ -19,11 +19,12 @@ export function Header({
         useGlobalContext();
     const [isUserRegistered, setIsUserRegistered] = useState<boolean>(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const checkUserRegistration = async () => {
             if (isConnected && address) {
                 try {
-                    const response = await axios.post("http://localhost:5000/api/login", {
+                    const response = await axios.post("https://d-chain.onrender.com/api/login", {
                         walletAddress: address,
                     });
                     if (response.status === 200) {
@@ -42,7 +43,7 @@ export function Header({
 
     const handleRoleSelect = async (role: string) => {
         try {
-            const response = await axios.post("http://localhost:5000/api/register", {
+            const response = await axios.post("https://d-chain.onrender.com/api/register", {
                 walletAddress: address,
                 role,
             });

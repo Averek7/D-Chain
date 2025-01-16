@@ -3,9 +3,14 @@ import Supplier from "@/components/Supplier";
 import Retailer from "@/components/Retailer";
 import { useGlobalContext } from "@/context/GlobalContext";
 import Dashboard from "@/components/Dashboard";
+import { useEffect } from "react";
 
 export default function Home() {
   const { userRole } = useGlobalContext();
+
+  useEffect(() => {
+    console.log(userRole);
+  }, [userRole]);
 
   return (
     <>
