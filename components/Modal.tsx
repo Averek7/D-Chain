@@ -7,11 +7,21 @@ interface ModalProps {
 }
 
 function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
-    if (!isOpen) return null;
+    const [inventory, setInventory] = useState({
+        productName: '',
+        quantity: '',
+        notes: '',
+    });
 
-    const [productName, setProductName] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [notes, setNotes] = useState('');
+    const { productName, quantity, notes } = inventory;
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setInventory((prevInventory) => ({
+            ...prevInventory,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = () => {
         if (!productName || !quantity) {
@@ -19,8 +29,10 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
             return;
         }
         onSubmit({ productName, quantity, notes });
-        onClose(); 
+        onClose();
     };
+
+    if (!isOpen) return null; 
 
     return (
         <div
@@ -37,8 +49,9 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <label className="block text-gray-300 mb-1">Product Name</label>
                         <input
                             type="text"
+                            name="productName"
                             value={productName}
-                            onChange={(e) => setProductName(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter product name"
                         />
@@ -47,8 +60,9 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                         <label className="block text-gray-300 mb-1">Quantity</label>
                         <input
                             type="number"
+                            name="quantity"
                             value={quantity}
-                            onChange={(e) => setQuantity(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Enter quantity"
                         />
@@ -56,8 +70,9 @@ function Modal({ isOpen, onClose, onSubmit }: ModalProps) {
                     <div>
                         <label className="block text-gray-300 mb-1">Additional Notes</label>
                         <textarea
+                            name="notes"
                             value={notes}
-                            onChange={(e) => setNotes(e.target.value)}
+                            onChange={handleChange}
                             className="w-full p-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             placeholder="Optional notes"
                             rows={3}

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function TrackDeliveries() {
+function TrackShipment() {
   return (
     <div></div>
   )
 }
 
-export default TrackDeliveries
+export default TrackShipment
