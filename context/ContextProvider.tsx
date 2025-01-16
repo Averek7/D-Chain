@@ -3,7 +3,7 @@
 import { wagmiAdapter, projectId, solanaWeb3JsAdapter } from './config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createAppKit } from '@reown/appkit/react'
-import { mainnet, polygonMumbai, solana, solanaDevnet } from '@reown/appkit/networks'
+import { mainnet, sepolia, solana, solanaDevnet } from '@reown/appkit/networks'
 import React, { type ReactNode } from 'react'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 
@@ -26,7 +26,7 @@ const metadata = {
 const modal = createAppKit({
     adapters: [wagmiAdapter, solanaWeb3JsAdapter],
     projectId,
-    networks: [mainnet, polygonMumbai, solana, solanaDevnet],
+    networks: [mainnet, sepolia, solana, solanaDevnet],
     defaultNetwork: solana,
     metadata: metadata,
     features: {
